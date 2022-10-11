@@ -23,15 +23,31 @@ galleryBoxEl.addEventListener("click", (evt) => {
     return;
   }
 
-  const currentImgEl = evt.target.dataset.source;
-
-  const instance = basicLightbox.create(`
-    <img src= '${currentImgEl}'>
-`);
+  const instance = basicLightbox.create(
+    `
+    <img src= '${evt.target.dataset.source}'>
+`,
+    {
+      onClose: (instance) => {
+        window.removeEventListener("keydown", onEcapeCloseModal);
+      },
+    }
+  );
 
   instance.show();
 
-  console.log(currentImgEl);
+  window.addEventListener("keydown", onEcapeCloseModal);
+
+  onEcapeCloseModal(evt);
 });
 
-// console.log(galleryItems);
+function onEcapeCloseModal(e) {
+  const modalEl = document.querySelector(".basicLightbox");
+  if (e.code === "Escape") {
+    modalEl.remove();
+    window.removeEventListener("keydown", onEcapeCloseModal);
+    return;
+  }
+}
+
+console.log(galleryItems);
