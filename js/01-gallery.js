@@ -37,8 +37,6 @@ galleryBoxEl.addEventListener("click", (evt) => {
   instance.show();
 
   window.addEventListener("keydown", onEcapeCloseModal);
-
-  onEcapeCloseModal(evt);
 });
 
 function onEcapeCloseModal(e) {
